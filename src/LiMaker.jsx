@@ -15,6 +15,7 @@ export default function LiMaker({ todoItems, setTodoItems }) {
   function handleEdit(id) {
     setIsEdited(id);
     setEdit(null);
+
     // todoItems.map((item) => {
     //   if (item.id === id) {
     //     setEdit(item.text);
@@ -51,34 +52,57 @@ export default function LiMaker({ todoItems, setTodoItems }) {
   }
 
   return (
-    <ul>
+    <ul className="text-base p-2 m-8">
       {todoItems.map((item) => {
         return (
-          <li key={item.id}>
+          <li className="bg-teal-300 my-3 p-2 rounded-md" key={item.id}>
             {isEdited == item.id ? (
-              <>
+              <section className="flex justify-between justify-items-center">
                 <input
                   value={edit ? edit : item.text}
                   onChange={(e) => setEdit(e.target.value)}
                 />
-                <button
-                  onClick={() => handleSave(item.id, edit ? edit : item.text)}
-                >
-                  Save
-                </button>
-                <button onClick={handleCancel}>Cancel</button>
-              </>
+                <div className="flex gap-1">
+                  <button
+                    className="bg-lime-400 rounded-md p-1"
+                    onClick={() => handleSave(item.id, edit ? edit : item.text)}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="bg-teal-400 rounded-md  p-1"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </section>
             ) : (
-              <>
-                <input
-                  type="checkbox"
-                  checked={item.isDone}
-                  onChange={()=>handleCheck(item.id)}
-                />
-                {item.isDone ? <s>{item.text}</s> : item.text}
-                <button onClick={() => handleDelete(item.id)}>Delete</button>
-                <button onClick={() => handleEdit(item.id)}>Edit</button>
-              </>
+              <section className="flex justify-between justify-items-center">
+                <div className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    checked={item.isDone}
+                    onChange={() => handleCheck(item.id)}
+                    className="w-6"
+                  />
+                  {item.isDone ? <s>{item.text}</s> : item.text}
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    className="bg-rose-700 rounded-md p-1"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="bg-slate-700 rounded-md p-1"
+                    onClick={() => handleEdit(item.id)}
+                  >
+                    Edit
+                  </button>
+                </div>
+              </section>
             )}
           </li>
         );
